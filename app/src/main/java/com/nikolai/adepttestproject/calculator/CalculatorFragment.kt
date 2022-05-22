@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.nikolai.adepttestproject.R
+import java.lang.Exception
 
 class CalculatorFragment : Fragment() {
     private val viewModel : CalculatorViewModel = CalculatorViewModel()
@@ -31,17 +32,46 @@ class CalculatorFragment : Fragment() {
 
         val plusButton = view.findViewById<Button>(R.id.plusButton)
         plusButton.setOnClickListener {
-            val userFirstInput = firstNumber.text.toString().toInt()
-            val userSecondInput = secondNumber.text.toString().toInt()
-            val userResult: Int = viewModel.plus(userFirstInput,userSecondInput)
-            textResult.text = userResult.toString()
+            try {
+                val userResult = viewModel.plus()
+                textResult.text = userResult.toString()
+            }
+            catch(error:Exception){
+                textResult.text = error.message
+            }
         }
         val minusButton = view.findViewById<Button>(R.id.minusButton)
         minusButton.setOnClickListener {
-            val userFirstInput = firstNumber.text.toString().toInt()
-            val userSecondInput = secondNumber.text.toString().toInt()
-            val userResult: Int = viewModel.minus(userFirstInput,userSecondInput)
-            textResult.text = userResult.toString()
+            try {
+                val userResult = viewModel.minus()
+                textResult.text = userResult.toString()
+            }
+            catch(error:Exception){
+                textResult.text = error.message
+            }
+
+        }
+        val divButton = view.findViewById<Button>(R.id.divButton)
+        divButton.setOnClickListener {
+            try{
+                val userResult = viewModel.div()
+                textResult.text = userResult.toString()
+            }
+            catch(error:Exception){
+                textResult.text = error.message
+            }
+
+        }
+        val multButton = view.findViewById<Button>(R.id.multButton)
+        multButton.setOnClickListener {
+            try {
+                val userResult = viewModel.mult()
+                textResult.text = userResult.toString()
+            }
+            catch(error:Exception){
+                textResult.text = error.message
+            }
+
         }
 
         firstNumber.addTextChangedListener{ fieldValue ->
